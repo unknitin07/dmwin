@@ -13,13 +13,54 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            background: #0a0a0a;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow-x: hidden;
             position: relative;
+        }
+
+        /* Animated casino background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(255, 215, 0, 0.02) 10px,
+                    rgba(255, 215, 0, 0.02) 20px
+                ),
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(255, 0, 0, 0.02) 10px,
+                    rgba(255, 0, 0, 0.02) 20px
+                ),
+                radial-gradient(circle at 20% 50%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            animation: backgroundShift 20s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% {
+                opacity: 0.8;
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05) rotate(2deg);
+            }
         }
 
         /* Animated background particles */
@@ -30,6 +71,57 @@
             background: rgba(255, 215, 0, 0.3);
             border-radius: 50%;
             animation: float 15s infinite ease-in-out;
+        }
+
+        /* Card suits background animation */
+        .card-suit {
+            position: absolute;
+            font-size: 60px;
+            opacity: 0.03;
+            animation: rotateSuit 30s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes rotateSuit {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.03;
+            }
+            50% {
+                opacity: 0.06;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Poker chips pattern */
+        .chip-pattern {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px dashed rgba(255, 215, 0, 0.08);
+            animation: spinChip 15s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes spinChip {
+            0% {
+                transform: rotate(0deg) scale(1);
+                opacity: 0.1;
+            }
+            50% {
+                transform: rotate(180deg) scale(1.2);
+                opacity: 0.15;
+            }
+            100% {
+                transform: rotate(360deg) scale(1);
+                opacity: 0.1;
+            }
         }
 
         @keyframes float {
@@ -81,6 +173,24 @@
             animation: bounce 2s ease-in-out infinite;
         }
 
+        .main-sticker {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+        }
+
+        .feature-sticker {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .cta-sticker {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+
         @keyframes bounce {
             0%, 100% {
                 transform: translateY(0) rotate(0deg);
@@ -101,8 +211,31 @@
         .subtitle {
             color: #a0a0a0;
             font-size: 16px;
-            margin-bottom: 30px;
+            margin-bottom: 24px;
             line-height: 1.5;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 18px 32px;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #000;
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 16px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(255, 215, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            animation: pulse 2s ease-in-out infinite;
+            margin-bottom: 30px;
         }
 
         .features {
@@ -155,27 +288,7 @@
             text-align: left;
         }
 
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            padding: 18px 32px;
-            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-            color: #000;
-            font-size: 18px;
-            font-weight: 700;
-            text-decoration: none;
-            border-radius: 16px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 16px rgba(255, 215, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-            animation: pulse 2s ease-in-out infinite;
-        }
+
 
         @keyframes pulse {
             0%, 100% {
@@ -283,12 +396,27 @@
                 font-size: 64px;
             }
 
+            .main-sticker {
+                width: 80px;
+                height: 80px;
+            }
+
             .feature {
                 padding: 12px;
             }
 
             .feature-icon {
                 font-size: 28px;
+            }
+
+            .feature-sticker {
+                width: 32px;
+                height: 32px;
+            }
+
+            .cta-sticker {
+                width: 24px;
+                height: 24px;
             }
 
             .feature-text {
@@ -301,6 +429,19 @@
     <!-- Background particles -->
     <div id="particles"></div>
 
+    <!-- Animated card suits background -->
+    <div class="card-suit" style="top: 5%; left: 15%; animation-delay: 0s;">♠</div>
+    <div class="card-suit" style="top: 15%; right: 20%; animation-delay: 3s;">♥</div>
+    <div class="card-suit" style="top: 70%; left: 10%; animation-delay: 6s;">♣</div>
+    <div class="card-suit" style="top: 85%; right: 15%; animation-delay: 9s;">♦</div>
+    <div class="card-suit" style="top: 40%; left: 5%; animation-delay: 12s;">♠</div>
+    <div class="card-suit" style="top: 50%; right: 8%; animation-delay: 15s;">♥</div>
+
+    <!-- Poker chip patterns -->
+    <div class="chip-pattern" style="top: 20%; left: 80%; animation-delay: 0s;"></div>
+    <div class="chip-pattern" style="top: 60%; left: 5%; animation-delay: 5s;"></div>
+    <div class="chip-pattern" style="top: 10%; left: 50%; animation-delay: 10s;"></div>
+
     <!-- Floating gambling chips -->
     <div class="chip" style="top: 10%; left: 10%; animation-delay: 0s;">🎰</div>
     <div class="chip" style="top: 80%; left: 85%; animation-delay: 5s;">🎲</div>
@@ -308,30 +449,46 @@
     <div class="chip" style="top: 20%; right: 10%; animation-delay: 15s;">💰</div>
 
     <div class="container">
-        <div class="sticker-container">🎰</div>
+        <div class="sticker-container">
+            <!-- STICKER 1: Main header gambling icon (slot machine, dice, or poker chips) -->
+            <img src="STICKER_1_URL" alt="Gambling" class="main-sticker">
+        </div>
         
         <h1>Win Big Today</h1>
         <p class="subtitle">Join our exclusive Telegram channel for premium gambling tips, predictions & daily wins</p>
 
+        <!-- CTA BUTTON IN MIDDLE -->
+        <a href="https://t.me/yourchannel" class="cta-button" id="joinBtn">
+            <span class="cta-icon">
+                <!-- STICKER 2: Rocket or money icon for CTA -->
+                <img src="STICKER_2_URL" alt="Join" class="cta-sticker">
+            </span>
+            <span>Join Channel Now</span>
+        </a>
+
         <div class="features">
             <div class="feature">
-                <div class="feature-icon">🎲</div>
+                <div class="feature-icon">
+                    <!-- STICKER 3: Dice icon -->
+                    <img src="STICKER_3_URL" alt="Tips" class="feature-sticker">
+                </div>
                 <div class="feature-text">Daily betting tips & predictions</div>
             </div>
             <div class="feature">
-                <div class="feature-icon">💎</div>
+                <div class="feature-icon">
+                    <!-- STICKER 4: Diamond or trophy icon -->
+                    <img src="STICKER_4_URL" alt="VIP" class="feature-sticker">
+                </div>
                 <div class="feature-text">VIP strategies & insider info</div>
             </div>
             <div class="feature">
-                <div class="feature-icon">🔥</div>
+                <div class="feature-icon">
+                    <!-- STICKER 5: Fire or money bag icon -->
+                    <img src="STICKER_5_URL" alt="Live" class="feature-sticker">
+                </div>
                 <div class="feature-text">Live results & instant updates</div>
             </div>
         </div>
-
-        <a href="https://t.me/yourchannel" class="cta-button" id="joinBtn">
-            <span class="cta-icon">🚀</span>
-            <span>Join Channel Now</span>
-        </a>
 
         <div class="stats">
             <div class="stat">

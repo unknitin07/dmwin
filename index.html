@@ -18,11 +18,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow-x: hidden;
+            overflow: hidden;
             position: relative;
         }
 
-        /* Animated casino background */
+        /* Heavy textured animated casino background */
         body::before {
             content: '';
             position: absolute;
@@ -31,35 +31,111 @@
             right: 0;
             bottom: 0;
             background: 
+                /* Poker chip circles texture */
+                radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.08) 0%, transparent 3%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 0, 0.08) 0%, transparent 3%),
+                radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.08) 0%, transparent 3%),
+                radial-gradient(circle at 10% 80%, rgba(0, 255, 0, 0.08) 0%, transparent 3%),
+                radial-gradient(circle at 90% 20%, rgba(255, 215, 0, 0.08) 0%, transparent 3%),
+                /* Diamond pattern texture */
                 repeating-linear-gradient(
                     45deg,
                     transparent,
-                    transparent 10px,
-                    rgba(255, 215, 0, 0.02) 10px,
-                    rgba(255, 215, 0, 0.02) 20px
+                    transparent 15px,
+                    rgba(255, 215, 0, 0.03) 15px,
+                    rgba(255, 215, 0, 0.03) 30px
                 ),
                 repeating-linear-gradient(
                     -45deg,
                     transparent,
-                    transparent 10px,
-                    rgba(255, 0, 0, 0.02) 10px,
-                    rgba(255, 0, 0, 0.02) 20px
+                    transparent 15px,
+                    rgba(255, 0, 0, 0.03) 15px,
+                    rgba(255, 0, 0, 0.03) 30px
                 ),
-                radial-gradient(circle at 20% 50%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
-                linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
-            animation: backgroundShift 20s ease-in-out infinite;
+                /* Card suit pattern */
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 50px,
+                    rgba(138, 43, 226, 0.02) 50px,
+                    rgba(138, 43, 226, 0.02) 100px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 50px,
+                    rgba(255, 215, 0, 0.02) 50px,
+                    rgba(255, 215, 0, 0.02) 100px
+                ),
+                /* Dot texture */
+                radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                /* Base gradients */
+                radial-gradient(ellipse at 20% 50%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(255, 0, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+            background-size: 
+                200% 200%,
+                200% 200%,
+                200% 200%,
+                200% 200%,
+                200% 200%,
+                100% 100%,
+                100% 100%,
+                100% 100%,
+                100% 100%,
+                20px 20px,
+                200% 200%,
+                200% 200%,
+                200% 200%,
+                100% 100%;
+            animation: backgroundShift 25s ease-in-out infinite;
             z-index: 0;
         }
 
         @keyframes backgroundShift {
             0%, 100% {
-                opacity: 0.8;
-                transform: scale(1) rotate(0deg);
+                background-position: 
+                    20% 30%, 80% 70%, 50% 50%, 10% 80%, 90% 20%,
+                    0% 0%, 0% 0%, 0% 0%, 0% 0%, 0 0,
+                    0% 0%, 100% 100%, 50% 50%, 0% 0%;
             }
             50% {
-                opacity: 1;
-                transform: scale(1.05) rotate(2deg);
+                background-position: 
+                    80% 70%, 20% 30%, 70% 70%, 90% 20%, 10% 80%,
+                    100% 100%, 100% 100%, 100% 100%, 100% 100%, 10px 10px,
+                    100% 100%, 0% 0%, 0% 0%, 0% 0%;
+            }
+        }
+
+        /* Linear shine effect */
+        body::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 50%;
+            height: 300%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 215, 0, 0.15) 40%,
+                rgba(255, 255, 255, 0.25) 50%,
+                rgba(255, 215, 0, 0.15) 60%,
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shine 8s ease-in-out infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -100%;
+            }
+            20%, 100% {
+                left: 200%;
             }
         }
 
@@ -145,15 +221,57 @@
             max-width: 480px;
             width: 90%;
             padding: 40px 30px;
-            background: rgba(26, 26, 46, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(26, 26, 46, 0.85);
+            backdrop-filter: blur(15px);
             border-radius: 24px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 60px rgba(255, 215, 0, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
             position: relative;
             z-index: 10;
             animation: slideUp 0.8s ease-out;
+            overflow: hidden;
+        }
+
+        /* Container shine effect */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(255, 215, 0, 0.05) 50%,
+                transparent 70%
+            );
+            animation: containerShine 6s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes containerShine {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        /* Noise texture overlay for container */
+        .container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            border-radius: 24px;
+            opacity: 0.5;
         }
 
         @keyframes slideUp {
@@ -171,24 +289,38 @@
             font-size: 80px;
             margin-bottom: 20px;
             animation: bounce 2s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
         }
 
         .main-sticker {
-            width: 100px;
-            height: 100px;
-            object-fit: contain;
+            font-size: 100px;
+            display: inline-block;
+            filter: drop-shadow(0 4px 8px rgba(255, 215, 0, 0.3));
         }
 
         .feature-sticker {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
+            font-size: 40px;
+            display: inline-block;
+            filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.2));
         }
 
         .cta-sticker {
-            width: 28px;
-            height: 28px;
-            object-fit: contain;
+            font-size: 28px;
+            display: inline-block;
+            animation: wiggle 1s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(-10deg);
+            }
+            75% {
+                transform: rotate(10deg);
+            }
         }
 
         @keyframes bounce {
@@ -206,6 +338,8 @@
             font-weight: 700;
             margin-bottom: 12px;
             letter-spacing: -0.5px;
+            position: relative;
+            z-index: 1;
         }
 
         .subtitle {
@@ -213,6 +347,8 @@
             font-size: 16px;
             margin-bottom: 24px;
             line-height: 1.5;
+            position: relative;
+            z-index: 1;
         }
 
         .cta-button {
@@ -236,6 +372,7 @@
             overflow: hidden;
             animation: pulse 2s ease-in-out infinite;
             margin-bottom: 30px;
+            z-index: 1;
         }
 
         .features {
@@ -243,6 +380,8 @@
             flex-direction: column;
             gap: 16px;
             margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
         }
 
         .feature {
@@ -336,6 +475,8 @@
             margin-top: 24px;
             padding-top: 24px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
         }
 
         .stat {
@@ -397,8 +538,7 @@
             }
 
             .main-sticker {
-                width: 80px;
-                height: 80px;
+                font-size: 80px;
             }
 
             .feature {
@@ -410,13 +550,11 @@
             }
 
             .feature-sticker {
-                width: 32px;
-                height: 32px;
+                font-size: 32px;
             }
 
             .cta-sticker {
-                width: 24px;
-                height: 24px;
+                font-size: 24px;
             }
 
             .feature-text {
@@ -430,28 +568,35 @@
     <div id="particles"></div>
 
     <!-- Animated card suits background -->
-    <div class="card-suit" style="top: 5%; left: 15%; animation-delay: 0s;">♠</div>
-    <div class="card-suit" style="top: 15%; right: 20%; animation-delay: 3s;">♥</div>
-    <div class="card-suit" style="top: 70%; left: 10%; animation-delay: 6s;">♣</div>
-    <div class="card-suit" style="top: 85%; right: 15%; animation-delay: 9s;">♦</div>
-    <div class="card-suit" style="top: 40%; left: 5%; animation-delay: 12s;">♠</div>
-    <div class="card-suit" style="top: 50%; right: 8%; animation-delay: 15s;">♥</div>
+    <div class="card-suit" style="top: 5%; left: 15%; animation-delay: 0s; font-size: 80px;">♠</div>
+    <div class="card-suit" style="top: 15%; right: 20%; animation-delay: 3s; font-size: 70px;">♥</div>
+    <div class="card-suit" style="top: 70%; left: 10%; animation-delay: 6s; font-size: 90px;">♣</div>
+    <div class="card-suit" style="top: 85%; right: 15%; animation-delay: 9s; font-size: 75px;">♦</div>
+    <div class="card-suit" style="top: 40%; left: 5%; animation-delay: 12s; font-size: 85px;">♠</div>
+    <div class="card-suit" style="top: 50%; right: 8%; animation-delay: 15s; font-size: 80px;">♥</div>
+    <div class="card-suit" style="top: 30%; right: 50%; animation-delay: 18s; font-size: 70px;">♦</div>
+    <div class="card-suit" style="top: 60%; left: 45%; animation-delay: 21s; font-size: 95px;">♣</div>
 
     <!-- Poker chip patterns -->
     <div class="chip-pattern" style="top: 20%; left: 80%; animation-delay: 0s;"></div>
     <div class="chip-pattern" style="top: 60%; left: 5%; animation-delay: 5s;"></div>
     <div class="chip-pattern" style="top: 10%; left: 50%; animation-delay: 10s;"></div>
+    <div class="chip-pattern" style="top: 75%; right: 25%; animation-delay: 7s;"></div>
+    <div class="chip-pattern" style="top: 35%; right: 10%; animation-delay: 12s;"></div>
 
-    <!-- Floating gambling chips -->
+    <!-- Floating gambling emojis -->
     <div class="chip" style="top: 10%; left: 10%; animation-delay: 0s;">🎰</div>
     <div class="chip" style="top: 80%; left: 85%; animation-delay: 5s;">🎲</div>
     <div class="chip" style="top: 50%; left: 5%; animation-delay: 10s;">🃏</div>
     <div class="chip" style="top: 20%; right: 10%; animation-delay: 15s;">💰</div>
+    <div class="chip" style="top: 65%; right: 5%; animation-delay: 8s;">🎯</div>
+    <div class="chip" style="top: 25%; left: 30%; animation-delay: 13s;">💎</div>
+    <div class="chip" style="top: 55%; right: 35%; animation-delay: 18s;">🔥</div>
 
     <div class="container">
         <div class="sticker-container">
-            <!-- STICKER 1: Main header gambling icon (slot machine, dice, or poker chips) -->
-            <img src="STICKER_1_URL" alt="Gambling" class="main-sticker">
+            <!-- Main header gambling icon -->
+            <span class="main-sticker">🎰</span>
         </div>
         
         <h1>Win Big Today</h1>
@@ -460,8 +605,8 @@
         <!-- CTA BUTTON IN MIDDLE -->
         <a href="https://t.me/yourchannel" class="cta-button" id="joinBtn">
             <span class="cta-icon">
-                <!-- STICKER 2: Rocket or money icon for CTA -->
-                <img src="STICKER_2_URL" alt="Join" class="cta-sticker">
+                <!-- Rocket icon for CTA -->
+                <span class="cta-sticker">💸</span>
             </span>
             <span>Join Channel Now</span>
         </a>
@@ -469,22 +614,22 @@
         <div class="features">
             <div class="feature">
                 <div class="feature-icon">
-                    <!-- STICKER 3: Dice icon -->
-                    <img src="STICKER_3_URL" alt="Tips" class="feature-sticker">
+                    <!-- Dice icon -->
+                    <span class="feature-sticker">🎲</span>
                 </div>
                 <div class="feature-text">Daily betting tips & predictions</div>
             </div>
             <div class="feature">
                 <div class="feature-icon">
-                    <!-- STICKER 4: Diamond or trophy icon -->
-                    <img src="STICKER_4_URL" alt="VIP" class="feature-sticker">
+                    <!-- Diamond icon -->
+                    <span class="feature-sticker">💎</span>
                 </div>
                 <div class="feature-text">VIP strategies & insider info</div>
             </div>
             <div class="feature">
                 <div class="feature-icon">
-                    <!-- STICKER 5: Fire or money bag icon -->
-                    <img src="STICKER_5_URL" alt="Live" class="feature-sticker">
+                    <!-- Fire icon -->
+                    <span class="feature-sticker">🔥</span>
                 </div>
                 <div class="feature-text">Live results & instant updates</div>
             </div>
